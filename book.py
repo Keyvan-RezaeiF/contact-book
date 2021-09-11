@@ -21,14 +21,70 @@ class Book:
     def edit_contact(self):
         pass
 
-    def search_in_book(self):
+    
+    def search_by_first_name(self):
         pass
+
+
+    def search_by_last_name(self):
+        pass
+    
+
+    def search_by_whole_name(self):
+        pass
+
+
+    def search_by_email(self):
+        pass
+
+
+    def search_by_number(self):
+        pass
+
+
+    def display_search_menu(self):
+        print("\n\t*** Search menu ***")
+        print("---------------------------------------")
+        print("\t*** 1. Search by first name")
+        print("\t*** 2. Search by last name")
+        print("\t*** 3. Search by whole name")
+        print("\t*** 4. Search by email")
+        print("\t*** 5. Search by number")
+        print("\t*** 6. Back")
+        print("\t*** 7. Exit")
+        choice = int(input("\n\tEnter your choice : "))
+
+        if choice == 1:
+            self.search_by_first_name()
+        elif choice == 2:
+            self.search_by_last_name()
+        elif choice == 3:
+            self.search_by_whole_name()
+        elif choice == 4:
+            self.search_by_email()
+        elif choice == 5:
+            self.search_by_number()
+        elif choice == 6:
+            return
+        elif choice == 7:
+            print("\n\tSee you later!\n")
+            exit()
+        else:
+            print("\n\tWrong input! Try again!\n")
+        
+        self.display_search_menu()
+
+
+    
+    def search_in_book(self):
+        self.display_search_menu()
+
 
     def sort_by_sth(self):
         pass
 
     def delete_contact(self):
-        pass
+        pass        
 
     def show_contact_book(self):
         print()
