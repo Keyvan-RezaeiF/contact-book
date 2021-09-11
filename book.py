@@ -23,15 +23,39 @@ class Book:
 
     
     def search_by_first_name(self):
-        pass
+        first_name = input("\n\tEnter first name : ")
+        found = False
+        for key in self.people.keys():
+            if key.split()[0] == first_name.title():
+                found = True
+                print(f"\n\tE-mail : {self.people[key][0]}  numbers : {self.people[key][1]}\n")
+
+        if found == False:
+            print("\n\tNot found")
 
 
     def search_by_last_name(self):
-        pass
+        last_name = input("\n\tEnter last name : ")
+        found = False
+        for key in self.people.keys():
+            found = True
+            if key.split()[1] == last_name.title():
+                print(f"\n\tE-mail : {self.people[key][0]}  numbers : {self.people[key][1]}\n")
     
+        if found == False:
+            print("\n\tNot found")
+
 
     def search_by_whole_name(self):
-        pass
+        whole_name = input("\n\tEnter whole name : ")
+        found = False
+        for key in self.people.keys():
+            found = True
+            if key == whole_name.title():
+                print(f"\n\tE-mail : {self.people[key][0]}  numbers : {self.people[key][1]}\n")
+    
+        if found == False:
+            print("\n\tNot found")
 
 
     def search_by_email(self):
