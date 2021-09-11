@@ -7,10 +7,19 @@ class Person():
         self.numbers = list()
 
     
+    def check_number(self):
+        while True:
+            number = input("\n\tEnter the number : ")
+            if len(number) == 11 and number.isnumeric():
+                return number
+            else:
+                print("\n\tSomething went wrong! Try again!")
+
+
     def add_numbers(self):
         count = int(input("\n\tHow many numbers do you want to add ? "))
         while count > 0:
-            self.numbers.append(input("\n\tEnter the number : "))
+            self.numbers.append(self.check_number())
             count -= 1
 
 

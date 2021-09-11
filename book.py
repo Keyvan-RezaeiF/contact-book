@@ -7,15 +7,28 @@ class Book:
         self.people = dict()
 
 
+    def check_email(self):
+        has_email = input("\n\tDoes contact have any e-mail ? (y/n) : ")
+        if has_email == "y" or has_email == "Y":
+            while True:
+                email = input("\n\tEnter contact's email : ")
+                if "@" in email:
+                    return email
+                else:
+                    print("\n\tSomething went wrong! Try again!")
+        else:
+            return None
+
+
     def add_contact(self):
-        first_name = input("\n\tEnter contact's fisrt name : ").title()
+        first_name = input("\n\tEnter contact's first name : ").title()
         last_name = input("\n\tEnter contact's last name : ").title()
-        email = input("\n\tEnter contact's email : ")
+        email = self.check_email()
         contact = Person(first_name, last_name, email)
         contact.add_numbers()
-        key = contact.get_first_name() + " " + contact.get_last_name()
-        value = [contact.get_email(), contact.get_numbers()]
-        self.people[key] = value
+        full_name = contact.get_first_name() + " " + contact.get_last_name()
+        info = [contact.get_email(), contact.get_numbers()]
+        self.people[full_name] = info
 
 
     def edit_contact(self):
@@ -66,7 +79,7 @@ class Book:
         pass
 
 
-    def display_search_menu(self):
+    def search_in_book(self):
         print("\n\t*** Search menu ***")
         print("---------------------------------------")
         print("\t*** 1. Search by first name")
@@ -78,19 +91,19 @@ class Book:
         print("\t*** 7. Exit")
         choice = int(input("\n\tEnter your choice : "))
 
-        if choice == 1:
+        if choice == "1":
             self.search_by_first_name()
-        elif choice == 2:
+        elif choice == "2":
             self.search_by_last_name()
-        elif choice == 3:
+        elif choice == "3":
             self.search_by_whole_name()
-        elif choice == 4:
+        elif choice == "4":
             self.search_by_email()
-        elif choice == 5:
+        elif choice == "5":
             self.search_by_number()
-        elif choice == 6:
+        elif choice == "6":
             return
-        elif choice == 7:
+        elif choice == "7":
             print("\n\tSee you later!\n")
             exit()
         else:
@@ -99,22 +112,23 @@ class Book:
         self.display_search_menu()
 
 
-    
-    def search_in_book(self):
-        self.display_search_menu()
-
-
     def sort_by_sth(self):
         pass
 
+    
     def delete_contact(self):
         pass        
 
+    
     def show_contact_book(self):
-        print()
-        print(self.people)
+        if self.people:
+            print()
+            for key, value in self.people.items():
+                print(f"\n\t{key} --> E-mail : {value[0]} , numbers : {value[1]}")
+        else:
+            print("\n\tContact book is empty!")
 
-
+    
     def display_main_menu(self):
         print("\n\t*** My contact book ***")
         print("---------------------------------------")
@@ -125,21 +139,21 @@ class Book:
         print("\t*** 5. Delete contact")
         print("\t*** 6. Show contact book")
         print("\t*** 7. Exit")
-        choice = int(input("\n\tEnter your choice : "))
+        choice = input("\n\tEnter your choice : ")
 
-        if choice == 1:
+        if choice == "1":
             self.add_contact()
-        elif choice == 2:
+        elif choice == "2":
             self.edit_contact()
-        elif choice == 3:
+        elif choice == "3":
             self.search_in_book()
-        elif choice == 4:
+        elif choice == "4":
             self.sort_by_sth()
-        elif choice == 5:
+        elif choice == "5":
             self.delete_contact()
-        elif choice == 6:
+        elif choice == "6":
             self.show_contact_book()
-        elif choice == 7:
+        elif choice == "7":
             print("\n\tSee you later!\n")
             exit()
         else:
