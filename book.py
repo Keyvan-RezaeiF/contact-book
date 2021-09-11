@@ -8,16 +8,19 @@ class Book:
 
 
     def check_email(self):
-        has_email = input("\n\tDoes contact have any e-mail ? (y/n) : ")
-        if has_email == "y" or has_email == "Y":
-            while True:
-                email = input("\n\tEnter contact's email : ")
-                if "@" in email:
-                    return email
-                else:
-                    print("\n\tSomething went wrong! Try again!")
-        else:
-            return None
+        while True:
+            has_email = input("\n\tDoes contact have any e-mail ? (y/n) : ")
+            if has_email == "y" or has_email == "Y":
+                while True:
+                    email = input("\n\tEnter contact's email : ")
+                    if "@" in email:
+                        return email
+                    else:
+                        print("\n\tSomething went wrong! Try again!")
+            elif has_email == "n" or has_email == "N":
+                return None
+            else:
+                print("\n\tSomething went wrong! Try again!")
 
 
     def add_contact(self):
@@ -44,39 +47,56 @@ class Book:
                 print(f"\n\tE-mail : {self.people[key][0]}  numbers : {self.people[key][1]}\n")
 
         if found == False:
-            print("\n\tNot found")
+            print("\n\tNot found!")
 
 
     def search_by_last_name(self):
         last_name = input("\n\tEnter last name : ")
         found = False
         for key in self.people.keys():
-            found = True
             if key.split()[1] == last_name.title():
-                print(f"\n\tE-mail : {self.people[key][0]}  numbers : {self.people[key][1]}\n")
+                found = True
+                print(f"\n\tE-mail : {self.people[key][0]} , numbers : {self.people[key][1]}\n")
     
         if found == False:
-            print("\n\tNot found")
+            print("\n\tNot found!")
 
 
     def search_by_whole_name(self):
         whole_name = input("\n\tEnter whole name : ")
         found = False
         for key in self.people.keys():
-            found = True
             if key == whole_name.title():
-                print(f"\n\tE-mail : {self.people[key][0]}  numbers : {self.people[key][1]}\n")
+                found = True
+                print(f"\n\tE-mail : {self.people[key][0]} , numbers : {self.people[key][1]}\n")
     
         if found == False:
-            print("\n\tNot found")
+            print("\n\tNot found!")
 
 
     def search_by_email(self):
-        pass
+        email = input("\n\tEnter email : ")
+        found = False
+        for key, value in self.people.items():
+            if value[0] == email:
+                found = True
+                print(f"\n\tname : {key} , numbers : {self.people[key][1]}\n")
+    
+        if found == False:
+            print("\n\tNot found!")
 
 
     def search_by_number(self):
-        pass
+        phone_number = input("\n\tEnter email : ")
+        found = False
+        for key, value in self.people.items():
+            for number in value[1]:
+                if number == phone_number:
+                    found = True
+                    print(f"\n\tname : {key} , E-mail : {self.people[key][0]}")
+    
+        if found == False:
+            print("\n\tNot found!")
 
 
     def search_in_book(self):
@@ -89,7 +109,7 @@ class Book:
         print("\t*** 5. Search by number")
         print("\t*** 6. Back")
         print("\t*** 7. Exit")
-        choice = int(input("\n\tEnter your choice : "))
+        choice = input("\n\tEnter your choice : ")
 
         if choice == "1":
             self.search_by_first_name()
@@ -109,7 +129,7 @@ class Book:
         else:
             print("\n\tWrong input! Try again!\n")
         
-        self.display_search_menu()
+        self.search_in_book()
 
 
     def sort_by_sth(self):
