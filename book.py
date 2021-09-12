@@ -8,6 +8,12 @@ class Book:
         self.people = dict()
 
 
+    def save_in_file(self):
+        with open("contactBook.txt", "w") as file:
+            for key, value in self.people.items():
+                file.write(f"\n\t*** {key} --> E-mail : {value[0]} , numbers : {value[1]}")
+
+    
     def check_email(self):
         while True:
             has_email = input("\n\tDoes contact have any e-mail ? (y/n) : ")
@@ -51,7 +57,7 @@ class Book:
                 self.people[new_key] = value
                 print("\n\tEdited successfully!")
                 self.sort_based_on_first_name()
-                self.show_contact_book()
+                self.save_in_file()
                 return
         print("\n\tNot found!")
 
@@ -68,6 +74,7 @@ class Book:
                 new_key = (first_name + " " + new_last_name).title()
                 self.people[new_key] = value
                 print("\n\tEdited successfully!")
+                self.save_in_file()
                 return
         print("\n\tNot found!")
     
@@ -84,7 +91,7 @@ class Book:
                 self.people[new_key] = value
                 print("\n\tEdited successfully!")
                 self.sort_based_on_first_name()
-                self.show_contact_book()
+                self.save_in_file()
                 return
         print("\n\tNot found!")
 
@@ -102,6 +109,7 @@ class Book:
                         value[0] = new_email
                         self.people[key] = value
                         print("\n\tEdited successfully!")
+                        self.save_in_file()
                         return
                     else:
                         print("\n\tNot found!")
@@ -114,8 +122,10 @@ class Book:
             for number in numbers:
                 i += 1
                 print(f"\n\t{i}. {number}")
+                return True
         else:
-            print("There is no number for this contact!")
+            print("\n\tThere is no number for this contact!")
+            return False
 
 
     def edit_numbers(self):
@@ -124,22 +134,47 @@ class Book:
         for key, value in self.people.items():
             i += 1
             if i == int(choice1):
-                self.show_numbers(key)
-                choice2 = input("\n\tWhich phone number do you want to edit? Enter the number : ")
-                j = 0
-                for number in value[1]:
-                    j += 1
-                    if j == int(choice2):
-                        while True:
-                            new_number = input("\n\tEnter contact's new number : ")
-                            if len(new_number) == 11 and new_number.isnumeric():
-                                self.people.pop(key)
-                                value[1][int(choice2) - 1] = new_number
-                                self.people[key] = value
-                                print("\n\tEdited successfully!")
-                                return
-                            else:
-                                print("\n\tNot found!")
+                if self.show_numbers(key):
+                    choice2 = input("\n\tWhich phone number do you want to edit? Enter the number : ")
+                    j = 0
+                    for number in value[1]:
+                        j += 1
+                        if j == int(choice2):
+                            while True:
+                                new_number = input("\n\tEnter contact's new number : ")
+                                if len(new_number) == 11 and new_number.isnumeric():
+                                    self.people.pop(key)
+                                    value[1][int(choice2) - 1] = new_number
+                                    self.people[key] = value
+                                    print("\n\tEdited successfully!")
+                                    self.save_in_file()
+                                    return
+                                else:
+                                    print("\n\tNot found!")
+                else:
+                    while True:
+                        want_to_add = input("\n\tDo you want to add any number for this contact ? (y/n) : ")
+                        if want_to_add.lower() == "y":
+                            count = int(input("\n\tHow many numbers do you want to add ? "))
+                            while count > 0:
+                                while True:
+                                    number = input("\n\tEnter the number : ")
+                                    if len(number) == 11 and number.isnumeric():
+                                        value[1].append(number)
+                                        break
+                                    else:
+                                        print("\n\tNumber is not valid! Try again!")
+                                count -= 1
+                            print("\n\tAdded successfully!")
+                            self.save_in_file()
+                            break    
+                        elif want_to_add.lower() == "n":
+                            break
+                        else:
+                            print("\n\tSomething went wrong! Try again!")
+            else:
+                print("\n\tSomething went wrong! Try again!")
+
             print("\n\tNot found!")
 
     
@@ -319,12 +354,14 @@ class Book:
 
         if choice == "1":
             self.add_contact()
+            self.save_in_file()
         elif choice == "2":
             self.edit_contact()
         elif choice == "3":
             self.search_in_book()
         elif choice == "4":
             self.delete_contact()
+            self.save_in_file()
         elif choice == "5":
             self.show_contact_book()
         elif choice == "6":
