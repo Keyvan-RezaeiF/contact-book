@@ -34,8 +34,95 @@ class Book:
         self.people[full_name] = info
 
 
-    def edit_contact(self):
+    def edit_first_name(self):
+        choice = input("\n\tWhich one do you want to edit? Enter the number : ")
+        i = 0
+        for key, value in self.people.items():
+            i += 1
+            if i == int(choice):
+                new_first_name = input("\n\tEnter contact's new first name : ")
+                last_name = key[key.find(" ") + 1:]
+                self.people.pop(key)
+                new_key = (new_first_name + " " + last_name).title()
+                self.people[new_key] = value
+                print("\n\tEdited successfully!")
+                return
+        print("\n\tNot found!")
+
+
+    def edit_last_name(self):
+        choice = input("\n\tWhich one do you want to edit? Enter the number : ")
+        i = 0
+        for key, value in self.people.items():
+            i += 1
+            if i == int(choice):
+                new_last_name = input("\n\tEnter contact's new last name : ")
+                first_name = key[:key.find(" ")]
+                self.people.pop(key)
+                new_key = (first_name + " " + new_last_name).title()
+                self.people[new_key] = value
+                print("\n\tEdited successfully!")
+                return
+        print("\n\tNot found!")
+    
+
+    def edit_whole_name(self):
+        choice = input("\n\tWhich one do you want to edit? Enter the number : ")
+        i = 0
+        for key, value in self.people.items():
+            i += 1
+            if i == int(choice):
+                new_name = input("\n\tEnter contact's new name : ")
+                self.people.pop(key)
+                new_key = new_name.title()
+                self.people[new_key] = value
+                print("\n\tEdited successfully!")
+                return
+        print("\n\tNot found!")
+
+    
+    def edit_email(self):
         pass
+
+
+    def edit_numbers(self):
+        pass
+
+    
+    def edit_contact(self): 
+        self.show_contact_book()
+        print("\n\t*** Edit menu ***")
+        print("---------------------------------------")
+        print("\t*** 1. Edit first name")
+        print("\t*** 2. Edit last name")
+        print("\t*** 3. Edit whole name")
+        print("\t*** 4. Edit email")
+        print("\t*** 5. Edit numbers")
+        print("\t*** 6. Back")
+        print("\t*** 7. Exit")
+        choice = input("\n\tEnter your choice : ")
+
+        if choice == "1":
+            self.edit_first_name()
+        elif choice == "2":
+            self.edit_last_name()
+        elif choice == "3":
+            self.edit_whole_name()
+        elif choice == "4":
+            self.edit_email()
+        elif choice == "5":
+            self.edit_numbers()
+        elif choice == "6":
+            return
+        elif choice == "7":
+            print("\n\tSee you later!\n")
+            exit()
+        else:
+            print("\n\tWrong input! Try again!\n")
+        
+        self.edit_contact()
+
+        
 
     
     def search_by_first_name(self):
@@ -106,7 +193,7 @@ class Book:
         print("\t*** 2. Search by last name")
         print("\t*** 3. Search by whole name")
         print("\t*** 4. Search by email")
-        print("\t*** 5. Search by number")
+        print("\t*** 5. Search by numbers")
         print("\t*** 6. Back")
         print("\t*** 7. Exit")
         choice = input("\n\tEnter your choice : ")
@@ -143,8 +230,10 @@ class Book:
     def show_contact_book(self):
         if self.people:
             print()
+            i = 0
             for key, value in self.people.items():
-                print(f"\n\t{key} --> E-mail : {value[0]} , numbers : {value[1]}")
+                i += 1
+                print(f"\n\t{i}. {key} --> E-mail : {value[0]} , numbers : {value[1]}")
         else:
             print("\n\tContact book is empty!")
 
