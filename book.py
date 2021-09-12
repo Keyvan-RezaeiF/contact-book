@@ -1,4 +1,5 @@
 from person import Person
+from collections import OrderedDict
 
 
 class Book:
@@ -32,6 +33,9 @@ class Book:
         full_name = contact.get_first_name() + " " + contact.get_last_name()
         info = [contact.get_email(), contact.get_numbers()]
         self.people[full_name] = info
+        print("\n\tAdded successfully!")
+        self.sort_based_on_first_name()
+        self.show_contact_book()
 
 
     def edit_first_name(self):
@@ -46,6 +50,8 @@ class Book:
                 new_key = (new_first_name + " " + last_name).title()
                 self.people[new_key] = value
                 print("\n\tEdited successfully!")
+                self.sort_based_on_first_name()
+                self.show_contact_book()
                 return
         print("\n\tNot found!")
 
@@ -77,6 +83,8 @@ class Book:
                 new_key = new_name.title()
                 self.people[new_key] = value
                 print("\n\tEdited successfully!")
+                self.sort_based_on_first_name()
+                self.show_contact_book()
                 return
         print("\n\tNot found!")
 
@@ -263,8 +271,8 @@ class Book:
         self.search_in_book()
 
 
-    def sort_by_sth(self):
-        pass
+    def sort_based_on_first_name(self):
+        self.people = OrderedDict(sorted(self.people.items()))
 
 
     def delete_contact(self):
@@ -304,10 +312,9 @@ class Book:
         print("\t*** 1. Add contact")
         print("\t*** 2. Edit contact")
         print("\t*** 3. Search")
-        print("\t*** 4. Sort")
-        print("\t*** 5. Delete contact")
-        print("\t*** 6. Show contact book")
-        print("\t*** 7. Exit")
+        print("\t*** 4. Delete contact")
+        print("\t*** 5. Show contact book")
+        print("\t*** 6. Exit")
         choice = input("\n\tEnter your choice : ")
 
         if choice == "1":
@@ -317,12 +324,10 @@ class Book:
         elif choice == "3":
             self.search_in_book()
         elif choice == "4":
-            self.sort_by_sth()
-        elif choice == "5":
             self.delete_contact()
-        elif choice == "6":
+        elif choice == "5":
             self.show_contact_book()
-        elif choice == "7":
+        elif choice == "6":
             print("\n\tSee you later!\n")
             exit()
         else:
