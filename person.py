@@ -13,7 +13,7 @@ class Person():
             if len(number) == 11 and number.isnumeric():
                 return number
             else:
-                print("\n\tSomething went wrong! Try again!")
+                print("\n\tNumber is not valid! Try again!")
 
 
     def add_numbers(self):

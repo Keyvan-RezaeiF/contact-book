@@ -16,7 +16,7 @@ class Book:
                     if "@" in email:
                         return email
                     else:
-                        print("\n\tSomething went wrong! Try again!")
+                        print("\n\tYour e-mail is not valid! Try again!")
             elif has_email == "n" or has_email == "N":
                 return None
             else:
@@ -82,11 +82,57 @@ class Book:
 
     
     def edit_email(self):
-        pass
+        choice = input("\n\tWhich one do you want to edit? Enter the number : ")
+        i = 0
+        for key, value in self.people.items():
+            i += 1
+            if i == int(choice):
+                while True:
+                    new_email = input("\n\tEnter contact's new email : ")
+                    if "@" in new_email:
+                        self.people.pop(key)
+                        value[0] = new_email
+                        self.people[key] = value
+                        print("\n\tEdited successfully!")
+                        return
+                    else:
+                        print("\n\tNot found!")
+
+
+    def show_numbers(self, name):
+        numbers = self.people[name][1]
+        if numbers:
+            i = 0
+            for number in numbers:
+                i += 1
+                print(f"\n\t{i}. {number}")
+        else:
+            print("There is no number for this contact!")
 
 
     def edit_numbers(self):
-        pass
+        choice1 = input("\n\tWhich contact do you want to edit? Enter the number : ")
+        i = 0
+        for key, value in self.people.items():
+            i += 1
+            if i == int(choice1):
+                self.show_numbers(key)
+                choice2 = input("\n\tWhich phone number do you want to edit? Enter the number : ")
+                j = 0
+                for number in value[1]:
+                    j += 1
+                    if j == int(choice2):
+                        while True:
+                            new_number = input("\n\tEnter contact's new number : ")
+                            if len(new_number) == 11 and new_number.isnumeric():
+                                self.people.pop(key)
+                                value[1][int(choice2) - 1] = new_number
+                                self.people[key] = value
+                                print("\n\tEdited successfully!")
+                                return
+                            else:
+                                print("\n\tNot found!")
+            print("\n\tNot found!")
 
     
     def edit_contact(self): 
@@ -121,8 +167,6 @@ class Book:
             print("\n\tWrong input! Try again!\n")
         
         self.edit_contact()
-
-        
 
     
     def search_by_first_name(self):
