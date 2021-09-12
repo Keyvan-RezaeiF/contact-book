@@ -1,5 +1,15 @@
 from person import Person
 from collections import OrderedDict
+from os import system, name
+from time import sleep
+
+
+def clear():
+    if name == 'nt':
+        _ = system('cls')
+  
+    else:
+        _ = system('clear')
 
 
 class Book:
@@ -31,9 +41,31 @@ class Book:
 
 
     def add_contact(self):
-        first_name = input("\n\tEnter contact's first name : ").title()
-        last_name = input("\n\tEnter contact's last name : ").title()
-        email = self.check_email()
+        self.show_contact_book()
+        print("\n\t*** Add menu ***")
+        print("---------------------------------------")
+        print("\t*** 1. Add from terminal")
+        print("\t*** 2. Add from text file")
+        print("\t*** 3. Back")
+        print("\t*** 4. Exit")
+        choice = input("\n\tEnter your choice : ")
+
+        if choice == "1":
+            first_name = input("\n\tEnter contact's first name : ").title()
+            last_name = input("\n\tEnter contact's last name : ").title()
+            email = self.check_email()
+        elif choice == "2":
+            pass # add from txt file
+        elif choice == "3":
+            clear()
+            return
+        elif choice == "4":
+            print("\n\tSee you later!\n")
+            clear()
+            exit()
+        else:
+            print("\n\tWrong input! Try again!\n")
+        
         contact = Person(first_name, last_name, email)
         contact.add_numbers()
         full_name = contact.get_first_name() + " " + contact.get_last_name()
@@ -41,7 +73,9 @@ class Book:
         self.people[full_name] = info
         print("\n\tAdded successfully!")
         self.sort_based_on_first_name()
-        self.show_contact_book()
+        self.save_in_file()
+        clear()
+        self.add_contact()
 
 
     def edit_first_name(self):
@@ -122,7 +156,7 @@ class Book:
             for number in numbers:
                 i += 1
                 print(f"\n\t{i}. {number}")
-                return True
+            return True
         else:
             print("\n\tThere is no number for this contact!")
             return False
@@ -179,6 +213,7 @@ class Book:
 
     
     def edit_contact(self): 
+        clear()
         self.show_contact_book()
         print("\n\t*** Edit menu ***")
         print("---------------------------------------")
@@ -202,13 +237,16 @@ class Book:
         elif choice == "5":
             self.edit_numbers()
         elif choice == "6":
+            clear()
             return
         elif choice == "7":
             print("\n\tSee you later!\n")
+            clear()
             exit()
         else:
             print("\n\tWrong input! Try again!\n")
         
+        clear()
         self.edit_contact()
 
     
@@ -284,6 +322,7 @@ class Book:
         print("\t*** 6. Back")
         print("\t*** 7. Exit")
         choice = input("\n\tEnter your choice : ")
+        clear()
 
         if choice == "1":
             self.search_by_first_name()
@@ -296,9 +335,11 @@ class Book:
         elif choice == "5":
             self.search_by_number()
         elif choice == "6":
+            clear()
             return
         elif choice == "7":
             print("\n\tSee you later!\n")
+            clear()
             exit()
         else:
             print("\n\tWrong input! Try again!\n")
@@ -315,6 +356,7 @@ class Book:
             while True:
                 self.show_contact_book()
                 choice = input("\n\tWhich one do you want to delete? Enter the number (for back, Enter 0): ")
+                clear()
                 if choice == "0":
                     return
                 elif int(choice) <= len(self.people):
@@ -326,8 +368,11 @@ class Book:
                             break
                     
                     self.people.pop(to_be_deleted_key)
+                    self.save_in_file()
                 else:
                     print("\n\tWrong input! Try again!\n")
+        else:
+            print("\n\tContact book is empty!")
         
     
     def show_contact_book(self):
@@ -352,16 +397,16 @@ class Book:
         print("\t*** 6. Exit")
         choice = input("\n\tEnter your choice : ")
 
+        clear()
         if choice == "1":
             self.add_contact()
-            self.save_in_file()
         elif choice == "2":
             self.edit_contact()
         elif choice == "3":
+            clear()
             self.search_in_book()
         elif choice == "4":
             self.delete_contact()
-            self.save_in_file()
         elif choice == "5":
             self.show_contact_book()
         elif choice == "6":
@@ -375,6 +420,7 @@ class Book:
 
 def main():
     my_contact_book = Book()
+    clear()
     my_contact_book.display_main_menu()
 
 
