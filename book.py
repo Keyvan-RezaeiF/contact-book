@@ -266,10 +266,26 @@ class Book:
     def sort_by_sth(self):
         pass
 
-    
-    def delete_contact(self):
-        pass        
 
+    def delete_contact(self):
+        if self.people:
+            while True:
+                self.show_contact_book()
+                choice = input("\n\tWhich one do you want to delete? Enter the number (for back, Enter 0): ")
+                if choice == "0":
+                    return
+                elif int(choice) <= len(self.people):
+                    i = 0
+                    for key, value in self.people.items():
+                        i += 1
+                        if i == int(choice):
+                            to_be_deleted_key = key
+                            break
+                    
+                    self.people.pop(to_be_deleted_key)
+                else:
+                    print("\n\tWrong input! Try again!\n")
+        
     
     def show_contact_book(self):
         if self.people:
